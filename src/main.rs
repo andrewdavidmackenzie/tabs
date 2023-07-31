@@ -24,6 +24,12 @@ enum Message {
     Ferris(FerrisMessage),
 }
 
+#[derive(Clone, PartialEq, Eq, Debug)]
+enum TabId {
+    Login,
+    Ferris,
+}
+
 impl Application for TabBarExample {
     type Executor = executor::Default;
     type Message = Message;
@@ -54,21 +60,29 @@ impl Application for TabBarExample {
 
     fn view(&self) -> Element<'_, Self::Message> {
         /****** FAILS
-        let tabs = Tabs::new(self.active_tab, Message::TabSelected)
-            .push(self.login_tab.tab_label(), self.login_tab.view())
-            .push(self.ferris_tab.tab_label(), self.ferris_tab.view());
+        ******/
+        let tabs = Tabs::new(Message::TabSelected)
+            .push(
+                    TabId::Login as usize,
+                self.login_tab.tab_label(),
+                self.login_tab.view())
+            .push(
+                    TabId::Ferris as usize,
+                self.ferris_tab.tab_label(),
+                self.ferris_tab.view())
+            .set_active_tab(&self.active_tab);
 
         let column = Column::new().push(tabs);
 
         container(column)
             .into()
-        ******/
 
-        /***** WORKS **/
+        /***** WORKS
         Tabs::new(self.active_tab, Message::TabSelected)
             .push(self.login_tab.tab_label(), self.login_tab.view())
             .push(self.ferris_tab.tab_label(), self.ferris_tab.view())
             .into()
+        **/
 
     }
 }

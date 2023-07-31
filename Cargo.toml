@@ -8,5 +8,5 @@ publish = false
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-iced_aw = { features = ["tabs"] }
+iced_aw = { git = "https://github.com/iced-rs/iced_aw.git", branch = "main", features = ["tabs"] }
 iced = { features = [ "image"] }
