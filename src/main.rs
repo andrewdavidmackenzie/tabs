@@ -1,10 +1,9 @@
-mod login;
 use iced::{alignment::{Horizontal, Vertical}, widget::{Column, Container}, Element, Settings, Application, Command, Theme, executor, Length};
-use iced::widget::container;
 use iced_aw::{TabLabel, Tabs};
 use login::{LoginMessage, LoginTab};
 
 mod ferris;
+mod login;
 use ferris::{FerrisMessage, FerrisTab};
 
 fn main() -> iced::Result {
@@ -70,10 +69,7 @@ impl Application for TabBarExample {
                 self.ferris_tab.view())
             .set_active_tab(&self.active_tab);
 
-        let column = Column::new().push(tabs);
-
-        container(column)
-            .into()
+        Column::new().push(tabs).into()
     }
 }
 
