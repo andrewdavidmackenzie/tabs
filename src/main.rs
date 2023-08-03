@@ -59,8 +59,6 @@ impl Application for TabBarExample {
     }
 
     fn view(&self) -> Element<'_, Self::Message> {
-        /****** FAILS
-        ******/
         let tabs = Tabs::new(Message::TabSelected)
             .push(
                     TabId::Login as usize,
@@ -76,14 +74,6 @@ impl Application for TabBarExample {
 
         container(column)
             .into()
-
-        /***** WORKS
-        Tabs::new(self.active_tab, Message::TabSelected)
-            .push(self.login_tab.tab_label(), self.login_tab.view())
-            .push(self.ferris_tab.tab_label(), self.ferris_tab.view())
-            .into()
-        **/
-
     }
 }
 
