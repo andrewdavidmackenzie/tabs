@@ -1,4 +1,5 @@
 use iced::{alignment::{Horizontal, Vertical}, widget::{Column, Container}, Element, Settings, Application, Command, Theme, executor, Length};
+use iced::widget::{Row, Scrollable, Text};
 use iced_aw::{TabLabel, Tabs};
 use login::{LoginMessage, LoginTab};
 
@@ -58,18 +59,26 @@ impl Application for TabBarExample {
     }
 
     fn view(&self) -> Element<'_, Self::Message> {
+        let scrollable = Scrollable::new(self.login_tab.view())
+            .height(Length::Fill);
+
         let tabs = Tabs::new(Message::TabSelected)
             .push(
                     TabId::Login as usize,
                 self.login_tab.tab_label(),
-                self.login_tab.view())
+                scrollable)
             .push(
                     TabId::Ferris as usize,
                 self.ferris_tab.tab_label(),
                 self.ferris_tab.view())
             .set_active_tab(&self.active_tab);
 
-        Column::new().push(tabs).into()
+        Column::new()
+            .push(Row::new().push(Text::new("Header")))
+            .push(tabs)
+            .push(Row::new().push(Text::new("Footer")))
+            .padding(10)
+            .into()
     }
 }
 
